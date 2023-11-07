@@ -67,6 +67,7 @@ Route::group(['middleware'=>['auth:api']], function () {
    //Ticket -
    Route::post('/ticket',[TicketController::class,'store']);
    Route::post('/ticket/close',[TicketController::class,'close_ticket']);
+   Route::post('/ticket/call',[TicketController::class,'call_ticket']);
    Route::get('/ticket/all',[TicketController::class,'index']);
    Route::get('/ticket/edit/{id}',[TicketController::class,'edit']);
    Route::post('/ticket/filter',[TicketController::class,'filter']);

@@ -128,12 +128,53 @@ class TicketController extends Controller
         ];
         return response($response,201);
     }
+    public function call_ticket(Request $request){
+        $data               = json_decode($request->getContent());
+        $ticket_name        = $data->Ticket;
+        $message            = "Echec: Aucun ticket avec le numéro $ticket_name";
+        $ticket             = Ticket::find((int)$data->Ticket);
+        if($ticket){
+            $date               = new DateTime();
+            $current_cloture    = $date->format("Y-m-d H:i:s");
+            //$cloture_date       = $ticket->TransferStatusFId != 3 || $ticket->TransferStatusFId != 4 ? $current_cloture:"";
+            $update_data        = [
+                                    'TransferStatusFId'     => 2,
+                                    'Motif'                 =>  $data->Motif,
+                                    ];
+            $ticket->update($update_data);
+            $message            = "Le ticket $ticket_name est en attente";
+        }
+        $response =[
+            'message'=>$message
+        ];
+        return response($response,201);
+    }
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Ticket $ticket)
     {
         //
+         $data               = json_decode($request->getContent());
+        $ticket_name        = $data->TicketId;
+        $message            = "Echec: Aucun ticket avec le numéro $ticket_name";
+        $ticket             = Ticket::find((int)$data->TicketId);
+        if($ticket){
+            $date               = new DateTime();
+            $current_cloture    = $date->format("Y-m-d H:i:s");
+            //$cloture_date       = $ticket->TransferStatusFId != 3 || $ticket->TransferStatusFId != 4 ? $current_cloture:"";
+            $update_data        = [
+                                    'TransferStatusFId'     =>  $ticket->TransferStatusFId,
+                                    'ClotureDateCreated'    =>  $current_cloture,
+                                    'Motif'                 =>  $data->Motif,
+                                    ];
+            $ticket->update($update_data);
+            $message            = "Le ticket $ticket_name vient d'être cloturé avec succès";
+        }
+        $response =[
+            'message'=>$message
+        ];
+        return response($response,201);
     }
 
     /**

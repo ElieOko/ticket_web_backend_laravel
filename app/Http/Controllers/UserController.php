@@ -60,10 +60,10 @@ class UserController extends Controller
             }  
             $user = User::where('UserName',$data->UserName)->first();
             if(!$user || !Hash::check($data->Password, $user->Password)){
-                return response(
+                return response()->json(
                     [
                         "message"=>"Mot de passe invalide"
-                    ],200
+                    ],404
                 );
             }
             
