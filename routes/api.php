@@ -50,6 +50,7 @@ Route::group(['middleware'=>['auth:api']], function () {
    Route::post('/counter',[CounterController::class,'store']);
    Route::get('/counter/all',[CounterController::class,'index']);
    Route::post('/counter/filter',[CounterController::class,'filter']);
+   Route::post('/counter/edit/{id}',[CounterController::class,'edit']);
    //Currency
    Route::post('/currency',[CurrencyController::class,'store']);
    Route::get('/currency/all',[CurrencyController::class,'index']);
@@ -69,7 +70,7 @@ Route::group(['middleware'=>['auth:api']], function () {
    Route::post('/ticket/close',[TicketController::class,'close_ticket']);
    Route::post('/ticket/call',[TicketController::class,'call_ticket']);
    Route::get('/ticket/all',[TicketController::class,'index']);
-   Route::get('/ticket/edit/{id}',[TicketController::class,'edit']);
+   Route::post('/ticket/edit/{id}',[TicketController::class,'edit']);
    Route::post('/ticket/filter',[TicketController::class,'filter']);
    //Title
    Route::post('/title',[TitleController::class,'store']);

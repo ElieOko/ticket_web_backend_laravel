@@ -37,20 +37,18 @@ class CounterController extends Controller
     {
         $msg = "Enregistrement réussie avec succès";
         $status = 201;
-        $data = json_decode($request->getContent());
-        foreach ($data as $dt) {
+        $dt = json_decode($request->getContent());
+        //foreach ($data as $dt) {
             # code...
             $state_save = Counter::create([
                 "Name"      =>  $dt->Name,
                 "BranchFId" =>  $dt->BranchFId,
             ]);
-        
             if(!$state_save){
                 $msg = "Echec de l'enregistrement";
                 $status = 400;
             }
-        }
-            
+        //}
             return response()->json([
                 "message"=>$msg,
             ],$status);
@@ -67,9 +65,17 @@ class CounterController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Counter $counter)
+    public function edit(Request $request, $id)
     {
         //
+        $data                = json_decode($request->getContent());
+        $counter             = Counter::find((int)$id);
+        $update_data         = ['Name' => $data->Name];
+        $counter->update($update_data);
+        $response = [
+            'message'=>$counter
+        ];
+        return response($response,201);
     }
 
     /**
