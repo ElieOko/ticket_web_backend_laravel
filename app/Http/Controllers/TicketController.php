@@ -16,7 +16,6 @@ class TicketController extends Controller
      */
     public function index()
     {
-        //with('user.branch','invoicekey','directory',"pictures")
         $ticket = Ticket::with('user.branch','currency','transferType',"transferStatus")->orderBy('TicketId', 'desc')->get();
         if($ticket->count() != 0 ){
             return new TicketCollection($ticket);
@@ -61,7 +60,7 @@ class TicketController extends Controller
         $check              = Ticket::value_between($data->Amount,$interval);  ; 
         if($check["status"]){
             $date            = new DateTime();
-            $current_day     = $date->format("Y-m-d H:i:s");
+            $current_day     = $date->format("Y-m-d");
             $ticket          = Ticket::where("TransferTypeFId", $data->TransferTypeFId)->where("CurrencyFId", $data->CurrencyFId)->get();
             $min             = count($ticket) > 0 ? count($ticket) - 1 : $check["min"];
             $numberTicket    = count($ticket) > 0 ? ++$ticket[$min]->TicketId : $check["min"];
@@ -193,10 +192,6 @@ class TicketController extends Controller
         ];
         return response($response,201);
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Ticket $ticket)
     {
         //
