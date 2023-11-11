@@ -81,12 +81,12 @@ class TicketController extends Controller
                 $msg = "Echec de l'enregistrement";
                 $status = 400;
             }
+            $ticket = Ticket::where('TicketId', $numberTicket)->with('user.branch','currency','transferType',"transferStatus")->orderBy('TicketId', 'desc')->get();
+            return response()->json([
+                "message"=>$msg,
+                "ticket"=> new TicketCollection($ticket)
+            ],$status);
         }
-        $ticket = Ticket::where('TicketId', $numberTicket)->with('user.branch','currency','transferType',"transferStatus")->orderBy('TicketId', 'desc')->get();
-        return response()->json([
-            "message"=>$msg,
-            "ticket"=> new TicketCollection($ticket)
-        ],$status);
     }
     /**
      * Display the specified resource.
