@@ -34,7 +34,7 @@ use App\Http\Controllers\TransferStatusController;
 
 Route::post('/register',[UserController::class,'store']);
   //User
-Route::post('/login',[UserController::class,'login']);   
+   
 Route::group(['middleware'=>['auth:api']], function () {
     //Branch
     Route::post('/branch',[BranchController::class,'store']);
@@ -93,6 +93,7 @@ Route::group(['middleware'=>['auth:api']], function () {
 
     Route::get('/user/all',[UserController::class,'index']);
     Route::post('/user/filter',[UserController::class,'filter']);
+    Route::post('/login',[UserController::class,'login']);
 //
 });
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
