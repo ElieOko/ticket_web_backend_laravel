@@ -92,7 +92,7 @@ Route::group(['middleware'=>['auth:api']], function () {
 
     Route::get('/user/all',[UserController::class,'index']);
     Route::post('/user/filter',[UserController::class,'filter']);
-    Route::post('/login',[UserController::class,'login']); 
+    Route::post('/login',[UserController::class,'login'])->name("login"); 
     
 //
 });
