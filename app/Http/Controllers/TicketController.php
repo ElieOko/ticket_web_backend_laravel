@@ -58,7 +58,10 @@ class TicketController extends Controller
         $status             = 201;
         $data               = json_decode($request->getContent());
         $interval           = Interval::where("TransferTypeFId", $data->TransferTypeFId)->where("CurrencyFId", $data->CurrencyFId)->get();
-        $check              = Ticket::value_between($data->Amount,$interval);  ; 
+        $check              = Ticket::value_between($data->Amount,$interval); 
+        return response()->json([
+            "message"=> $check 
+        ],$status); 
         if($check["status"]){
             $date            = new DateTime();
             $current_day     = $date->format("Y-m-d");
