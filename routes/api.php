@@ -33,8 +33,7 @@ use App\Http\Controllers\TransferStatusController;
 //UserPermission
 
 Route::post('/register',[UserController::class,'store']);
-  //User
-Route::post('/login',[UserController::class,'login']);   
+  //User  
 Route::group(['middleware'=>['auth:api']], function () {
     //Branch
     Route::post('/branch',[BranchController::class,'store']);
@@ -93,6 +92,7 @@ Route::group(['middleware'=>['auth:api']], function () {
 
     Route::get('/user/all',[UserController::class,'index']);
     Route::post('/user/filter',[UserController::class,'filter']);
+    Route::post('/login',[UserController::class,'login']); 
     
 //
 });
