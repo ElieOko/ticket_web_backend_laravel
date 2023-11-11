@@ -53,6 +53,7 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
+        $numberTicket       = 0;
         $msg                = "Enregistrement réussie avec succès";
         $status             = 201;
         $data               = json_decode($request->getContent());
@@ -81,12 +82,12 @@ class TicketController extends Controller
                 $msg = "Echec de l'enregistrement";
                 $status = 400;
             }
-            $ticket = Ticket::where('TicketId', $numberTicket)->with('user.branch','currency','transferType',"transferStatus")->orderBy('TicketId', 'desc')->get();
-            return response()->json([
-                "message"=>$msg,
-                "ticket"=> new TicketCollection($ticket)
-            ],$status);
         }
+        $ticket = Ticket::where('TicketId', $numberTicket)->with('user.branch','currency','transferType',"transferStatus")->orderBy('TicketId', 'desc')->get();
+        return response()->json([
+            "message"=>$msg,
+            "ticket"=> new TicketCollection($ticket)
+        ],$status);
     }
     /**
      * Display the specified resource.
