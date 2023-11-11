@@ -827,3 +827,19 @@
     }
   ]
   ---Inter
+  {
+                "BranchFId"         : 1,
+                "UserName"          :"Jonathan",
+                "FullName"          :"Jonathan dev", 
+                "AccessToken"       : "",
+                "UserType"          : "it",
+                "AccessLevel"       : 1,
+                "Locked"            : false,
+                "Admin"             : false,
+                "Password"          : "1234"
+  
+}
+{
+  "UserName": "Jonathan",
+  "Password": "1234"
+}
